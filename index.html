@@ -1,0 +1,414 @@
+         
+          <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediGuard AI | Medication Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <aside class="sidebar">
+        <div class="logo">
+            <h2>💊 MediGuard AI</h2>
+        </div>
+
+        <div class="language-selector">
+            <label for="languageSelect">🌐 Language / ਭਾਸ਼ਾ</label>
+            <select id="languageSelect">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+                <option value="pa">ਪੰਜਾਬੀ</option>
+            </select>
+        </div>
+
+        <nav>
+            <a href="#dashboard">🏠 Dashboard</a>
+            <a href="#medicines">💊 My Medicines</a>
+            <a href="#prescriptions">📄 Prescriptions</a>
+            <a href="#reminders">⏰ Reminders</a>
+            <a href="#voiceAssistant">🎙️ AI Voice Assistant</a>
+            <a href="#family">👨‍👩‍👧 Family Dashboard</a>
+            <a href="#settings">⚙️ Settings</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+
+        <!-- MAIN DASHBOARD -->
+        <section id="dashboard">
+            <header class="top-header">
+                <div>
+                    <h1>Welcome to MediGuard AI</h1>
+                    <p>Your Smart Medication Management Assistant</p>
+                </div>
+            </header>
+
+            <div class="hero-banner">
+                <div>
+                    <h2>Stay Safe. Stay Healthy.</h2>
+                    <p>Manage your medicines and reminders in one place.</p>
+                </div>
+                <div class="hero-icon">💊</div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Active Medicines</h3>
+                    <h2 id="activeMedicines">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Upcoming Doses</h3>
+                    <h2 id="upcomingDoses">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Doses Taken</h3>
+                    <h2 id="dosesTaken">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Refill Alerts</h3>
+                    <h2 id="safetyAlerts">0</h2>
+                </div>
+            </div>
+
+            <section class="panel">
+                <h2>📅 Today's Medication</h2>
+                <div id="todayMedication">
+                    No medicines scheduled for today.
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Quick Actions</h2>
+                <div class="quick-actions">
+                    <a href="#medicines">➕ Add Medicine</a>
+                    <a href="#reminders">⏰ Set Reminder</a>
+                    <a href="#prescriptions">📄 Scan Prescription</a>
+                    <a href="#voiceAssistant">🎙️ Voice Assistant</a>
+                </div>
+            </section>
+        </section>
+
+        <!-- MEDICINES -->
+        <section id="medicines" class="panel">
+            <h2>💊 My Medicines</h2>
+
+            <form id="medicineForm">
+                <label for="medicine_name">Medicine Name</label>
+                <input type="text" id="medicine_name"
+                    placeholder="Enter medicine name" required>
+
+                <label for="dosage">Dosage</label>
+                <input type="text" id="dosage"
+                    placeholder="Example: 1 tablet">
+
+                <label for="frequency">Frequency</label>
+                <input type="text" id="frequency"
+                    placeholder="Example: Twice daily">
+
+                <label for="timing">Timing</label>
+                <input type="text" id="timing"
+                    placeholder="Example: Morning and evening">
+
+                <label for="duration">Duration</label>
+                <input type="text" id="duration"
+                    placeholder="Example: 5 days">
+
+                <label for="stock">Stock</label>
+                <input type="number" id="stock" min="0"
+                    placeholder="Enter stock quantity" required>
+
+                <button type="submit">Add Medicine</button>
+                <p id="message"></p>
+            </form>
+
+            <h3>Saved Medicines</h3>
+            <div id="medicineList"></div>
+        </section>
+
+        <!-- PRESCRIPTION SCANNER -->
+        <section id="prescriptions" class="panel">
+            <h2>📄 AI Prescription Scanner</h2>
+            <p>Upload a prescription image to extract its written text.</p>
+
+            <div class="scanner-container">
+                <label for="prescriptionImage">Select Prescription Image</label>
+
+                <input type="file" id="prescriptionImage"
+                    accept="image/png, image/jpeg, image/jpg">
+
+                <div id="imagePreviewContainer" hidden>
+                    <h3>Image Preview</h3>
+                    <img id="prescriptionPreview" src=""
+                        alt="Prescription preview"
+                        style="max-width:100%; max-height:350px; object-fit:contain;">
+                </div>
+
+                <button type="button" id="scanPrescription">
+                    🔍 Scan Prescription
+                </button>
+
+                <p id="scanMessage"></p>
+
+                <h3>Extracted Prescription Text</h3>
+                <textarea id="extractedText" rows="8"
+                    placeholder="Extracted text will appear here."></textarea>
+
+                <p class="small-note">
+                    Verify extracted information with a qualified healthcare
+                    professional. Unclear handwriting must not be guessed.
+                </p>
+            </div>
+        </section>
+
+        <!-- REMINDERS -->
+        <section id="reminders" class="panel">
+            <h2>⏰ Medicine Reminders</h2>
+
+            <form id="reminderForm">
+                <label for="medicine_id">Select Medicine</label>
+                <select id="medicine_id" required>
+                    <option value="">Select Medicine</option>
+                </select>
+
+                <label for="reminder_time">Reminder Time</label>
+                <input type="time" id="reminder_time" required>
+
+                <label for="repeat_type">Repeat</label>
+                <select id="repeat_type">
+                    <option value="once">Once</option>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                </select>
+
+                <div id="dateField">
+                    <label for="reminder_date">Reminder Date</label>
+                    <input type="date" id="reminder_date">
+                </div>
+
+                <div id="weeklyDays" hidden>
+                    <p>Select Weekdays</p>
+                    <label><input type="checkbox" name="weekdays" value="Monday"> Monday</label>
+                    <label><input type="checkbox" name="weekdays" value="Tuesday"> Tuesday</label>
+                    <label><input type="checkbox" name="weekdays" value="Wednesday"> Wednesday</label>
+                    <label><input type="checkbox" name="weekdays" value="Thursday"> Thursday</label>
+                    <label><input type="checkbox" name="weekdays" value="Friday"> Friday</label>
+                    <label><input type="checkbox" name="weekdays" value="Saturday"> Saturday</label>
+                    <label><input type="checkbox" name="weekdays" value="Sunday"> Sunday</label>
+                </div>
+
+                <button type="submit">Save Reminder</button>
+                <p id="reminderMessage"></p>
+            </form>
+
+            <h3>All Reminders</h3>
+            <div id="reminderList"></div>
+        </section>
+
+        <!-- VOICE ASSISTANT -->
+        <section id="voiceAssistant" class="panel">
+            <h2>🎙️ MediGuard AI Voice Assistant</h2>
+
+            <p>
+                Speak or type a message. You can edit your speech
+                transcription before sending it.
+            </p>
+
+            <button type="button" id="startVoice">🎤 Start Speaking</button>
+            <button type="button" id="stopVoice">Stop Speaking</button>
+
+            <label for="voiceText">Your Message</label>
+            <textarea id="voiceText" rows="5"
+                placeholder="Your spoken words will appear here..."></textarea>
+
+            <button type="button" id="speakText">🔊 Read Text Aloud</button>
+            <button type="button" id="clearVoice">Clear Text</button>
+
+            <p id="voiceMessage"></p>
+
+            <p class="small-note">
+                Voice features depend on browser and device support.
+            </p>
+        </section>
+
+        <!-- FAMILY DASHBOARD -->
+        <section id="family" class="panel">
+            <h2>👨‍👩‍👧 Family Dashboard</h2>
+
+            <p>
+                Manage and view your family's medication tracking
+                in one convenient dashboard.
+            </p>
+
+            <div id="familyLoginBox" class="panel">
+                <h3>🔐 Family Member Login</h3>
+
+                <label for="familyEmail">Email Address</label>
+                <input type="email" id="familyEmail"
+                    placeholder="demo@mediguard.com">
+
+                <label for="familyPassword">Password</label>
+                <input type="password" id="familyPassword"
+                    placeholder="Enter password">
+
+                <button type="button" id="familyLoginButton">
+                    Login to Family Dashboard
+                </button>
+
+                <p id="familyLoginMessage" aria-live="polite"></p>
+
+                <p>
+                    <strong>Demo Email:</strong> demo@mediguard.com
+                    <br>
+                    <strong>Demo Password:</strong> MediGuard123
+                </p>
+            </div>
+
+            <div id="familyDashboardContent" hidden>
+
+                <h3>📊 Family Overview</h3>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Family Members</h3>
+                        <h2 id="familyMemberCount">0</h2>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Active Medicines</h3>
+                        <h2 id="familyMedicineCount">0</h2>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Pending Reminders</h3>
+                        <h2 id="familyPendingCount">0</h2>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h3>👨‍👩‍👧 Family Members</h3>
+                    <div id="familyMemberList"></div>
+                </div>
+
+                <div class="panel">
+                    <h3>➕ Add Family Member</h3>
+
+                    <label for="newFamilyName">Member Name</label>
+                    <input type="text" id="newFamilyName"
+                        placeholder="Enter member name">
+
+                    <label for="newFamilyEmail">Member Email</label>
+                    <input type="email" id="newFamilyEmail"
+                        placeholder="Enter member email">
+
+                    <button type="button" id="addFamilyMember">
+                        Add Member
+                    </button>
+
+                    <p id="familyAddMessage"></p>
+                </div>
+
+                <div class="panel">
+                    <h3>📦 Family Refill Alerts</h3>
+                    <div id="familyRefillAlerts"></div>
+                </div>
+
+                <button type="button" id="familyLogoutButton">
+                    Logout
+                </button>
+
+                <p class="small-note">
+                    Demo mode: Family information shown here is sample data.
+                    This is not secure authentication or live medical-record sharing.
+                </p>
+            </div>
+        </section>
+
+        <!-- SETTINGS -->
+        <section id="settings" class="panel">
+            <h2>⚙️ Settings</h2>
+            <p>MediGuard AI Settings</p>
+            <p>
+                More language, accessibility and notification settings
+                will be added later.
+            </p>
+        </section>
+
+        <footer>
+            <p>© 2026 MediGuard AI | Student Project Prototype</p>
+            <p>
+                This application is for medication tracking and educational
+                purposes, not for diagnosis or treatment decisions.
+            </p>
+        </footer>
+
+    </main>
+</div>
+
+<!-- REMINDER FORM CONTROL -->
+<script>
+    const repeatSelect = document.getElementById("repeat_type");
+    const dateField = document.getElementById("dateField");
+    const weeklyDays = document.getElementById("weeklyDays");
+
+    function updateRepeatFields() {
+        const value = repeatSelect.value;
+        dateField.hidden = value !== "once";
+        weeklyDays.hidden = value !== "weekly";
+    }
+
+    repeatSelect.addEventListener("change", updateRepeatFields);
+    updateRepeatFields();
+</script>
+
+<!-- PRESCRIPTION IMAGE PREVIEW -->
+<script>
+    const prescriptionImage = document.getElementById("prescriptionImage");
+    const prescriptionPreview = document.getElementById("prescriptionPreview");
+    const imagePreviewContainer = document.getElementById("imagePreviewContainer");
+    const scanMessage = document.getElementById("scanMessage");
+
+    prescriptionImage.addEventListener("change", function() {
+        const file = this.files[0];
+
+        scanMessage.textContent = "";
+        imagePreviewContainer.hidden = true;
+        prescriptionPreview.removeAttribute("src");
+
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            scanMessage.textContent = "Please select an image file.";
+            this.value = "";
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            scanMessage.textContent = "Image size must be below 5 MB.";
+            this.value = "";
+            return;
+        }
+
+        const imageURL = URL.createObjectURL(file);
+        prescriptionPreview.src = imageURL;
+        imagePreviewContainer.hidden = false;
+        scanMessage.textContent = "Image selected successfully.";
+    });
+</script>
+
+<!-- EXISTING PROJECT SCRIPTS -->
+<script src="script.js"></script>
+<script src="reminder-alerts.js"></script>
+
+<!-- FAMILY DASHBOARD DEMO -->
+<script src="family-dashboard.js"></script>
+
+</body>
+</html>
